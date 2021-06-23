@@ -33,13 +33,13 @@
         let droppedFiles = [];
 
         let getFileExtension = function (file) {
-            var pos = file.name.lastIndexOf('.');
+            let pos = file.name.lastIndexOf('.');
             return pos !== -1 ? file.name.substring(pos + 1).toUpperCase() : null;
         };
 
         let nextFileId = function () {
-            var id = 1;
-            var found;
+            let id = 1;
+            let found;
             do {
                 found = false;
 
@@ -61,7 +61,7 @@
         };
 
         let removeFileBlock = function (id) {
-            var pos;
+            let pos;
             for (pos = 0; pos < droppedFiles.length; pos++) {
                 if (droppedFiles[pos].id === id) {
                     break;
@@ -77,46 +77,46 @@
         };
 
         let moveUpFileBlock = function (id) {
-            var pos;
+            let pos;
             for (pos = 0; pos < droppedFiles.length; pos++) {
                 if (droppedFiles[pos].id === id) {
                     break;
                 }
             }
             if (pos < droppedFiles.length && pos !== 0) {
-                var prevId = droppedFiles[pos - 1].id;
-                var flTemp = droppedFiles[pos - 1];
+                let prevId = droppedFiles[pos - 1].id;
+                let flTemp = droppedFiles[pos - 1];
                 droppedFiles[pos - 1] = droppedFiles[pos];
                 droppedFiles[pos] = flTemp;
 
-                var block = $('#filedrop-' + randomId + ' > #fileupload-' + id).detach();
+                let block = $('#filedrop-' + randomId + ' > #fileupload-' + id).detach();
                 $('#filedrop-' + randomId + ' > #fileupload-' + prevId).before(block);
             }
         };
 
         let moveDownFileBlock = function (id) {
-            var pos;
+            let pos;
             for (pos = 0; pos < droppedFiles.length; pos++) {
                 if (droppedFiles[pos].id == id) {
                     break;
                 }
             }
             if (pos < droppedFiles.length && pos != (droppedFiles.length - 1)) {
-                var nextId = droppedFiles[pos + 1].id;
-                var flTemp = droppedFiles[pos + 1];
+                let nextId = droppedFiles[pos + 1].id;
+                let flTemp = droppedFiles[pos + 1];
                 droppedFiles[pos + 1] = droppedFiles[pos];
                 droppedFiles[pos] = flTemp;
 
-                var block = $('#filedrop-' + randomId + ' > #fileupload-' + id).detach();
+                let block = $('#filedrop-' + randomId + ' > #fileupload-' + id).detach();
                 $('#filedrop-' + randomId + ' > #fileupload-' + nextId).after(block);
             }
         }
 
         let appendFileBlock = function (file) {
-            var id = nextFileId();
-            var name = file.name;
-            var fileMoveUpLink = null;
-            var fileMoveDownLink = null;
+            let id = nextFileId();
+            let name = file.name;
+            let fileMoveUpLink = null;
+            let fileMoveDownLink = null;
             if (options.UseSorting) {
                 fileMoveUpLink = $('\
                     <a class="fileMoveUpLink">\
@@ -135,7 +135,7 @@
                     moveDownFileBlock(id);
                 });
             }
-            var fileRemoveLink = $('\
+            let fileRemoveLink = $('\
                 <a class="fileRemoveLink">\
                     <i class="fa fa-times"></i>\
                 </a>\
@@ -143,7 +143,7 @@
             fileRemoveLink.find("i").on('click', function () {
                 removeFileBlock(id);
             });
-            var spanFileName = $('\
+            let spanFileName = $('\
                 <span class="filename">\
                     <label class="custom-file-upload" style="display:inline">'+ name + '</label>\
                 </span>\
@@ -154,7 +154,7 @@
             }
             spanFileName.append(fileRemoveLink);
 
-            var fileBlock = $('<div id="fileupload-' + id + '" class="fileupload"></div>');
+            let fileBlock = $('<div id="fileupload-' + id + '" class="fileupload"></div>');
             fileBlock.on('dragover', preventFileDrop);
             fileBlock.on('drop', preventFileDrop);
             fileBlock.append(spanFileName);
@@ -177,10 +177,10 @@
                     return null;
                 }
 
-                var data = new FormData();
-                var dotPos, ext;
-                var f;
-                for (var i = 0; i < droppedFiles.length; i++) {
+                let data = new FormData();
+                let dotPos, ext;
+                let f;
+                for (let i = 0; i < droppedFiles.length; i++) {
                     f = droppedFiles[i];
                     dotPos = f.name.lastIndexOf('.');
                     ext = dotPos >= 0 ? f.name.substring(dotPos + 1).toUpperCase() : null;
@@ -199,13 +199,13 @@
         };
 
         let uploadFileSelected = function (event) {
-            var bError = false;
+            let bError = false;
             if (event.target.files && event.target.files.length) {
-                var fileCount = event.target.files.length + droppedFiles.length;
+                let fileCount = event.target.files.length + droppedFiles.length;
                 if (fileCount <= options.MaximumUploadFiles) {
-                    var ext;
+                    let ext;
                     options.hideAlert();
-                    for (var i = 0; i < event.target.files.length; i++) {
+                    for (let i = 0; i < event.target.files.length; i++) {
                         ext = getFileExtension(event.target.files[i]);
                         if (ext !== null && acceptExts.indexOf(ext) !== -1) {
                             appendFileBlock(event.target.files[i])
