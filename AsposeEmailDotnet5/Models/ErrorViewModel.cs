@@ -1,5 +1,3 @@
-using System;
-
 namespace AsposeEmailDotnet5.Models
 {
     public class ErrorViewModel

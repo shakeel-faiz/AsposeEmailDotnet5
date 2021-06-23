@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AsposeEmailDotnet5.Models
+﻿namespace AsposeEmailDotnet5.Models
 {
     public class Response
     {

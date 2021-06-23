@@ -1,9 +1,7 @@
 ﻿using Aspose.Email.Cloud.Sdk.Api;
 using Aspose.Email.Cloud.Sdk.Model;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.Json;
 
 namespace AsposeEmailDotnet5.Services
