@@ -1,10 +1,13 @@
 ﻿using AsposeEmailDotnet5.Models;
+using AsposeEmailDotnet5.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
@@ -68,11 +71,14 @@ namespace AsposeEmailDotnet5.Controllers
     public class ConversionController : BaseController
     {
 
-        public ConversionController(IMemoryCache cache) : base(cache)
+        public ConversionController(IMemoryCache cache, IAsposeEmailCloudApiService emailService) : base(cache)
         {
+            EmailService = emailService;
         }
 
         public override string Product => (string)RouteData.Values["product"];
+
+        public IAsposeEmailCloudApiService EmailService { get; }
 
         public IActionResult Conversion()
         {
@@ -85,5 +91,27 @@ namespace AsposeEmailDotnet5.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<string> Conversion(string outputType)
+        {
+            MemoryStream ms = new MemoryStream();
+
+            IFormFile postedFile = Request.Form.Files[0];
+            string fileName = postedFile.FileName;
+            await postedFile.CopyToAsync(ms);
+
+            string fromFormat = Path.GetExtension(fileName).Substring(1);
+            string toFormat = outputType;
+            var file = ms;
+            string outputFileName = Path.GetFileNameWithoutExtension(fileName) + "." + outputType;
+
+            var convertResult = EmailService.Convert(file, fromFormat, toFormat);
+
+            return new Response
+            {
+                StatusCode = 200,
+                FileName = outputFileName
+            }.ToString();
+        }
     }
 }
