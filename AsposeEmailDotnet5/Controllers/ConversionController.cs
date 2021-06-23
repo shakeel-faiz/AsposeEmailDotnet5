@@ -14,6 +14,9 @@ namespace AsposeEmailDotnet5.Controllers
     {
         public abstract string Product { get; }
 
+        public string SessionKeyConvertResult => nameof(SessionKeyConvertResult);
+        public string SessionKeyOutputFileName => nameof(SessionKeyOutputFileName);
+
         public IMemoryCache Cache { get; }
 
         public BaseController(IMemoryCache cache)
@@ -101,7 +104,10 @@ namespace AsposeEmailDotnet5.Controllers
             var file = ms;
             string outputFileName = Path.GetFileNameWithoutExtension(fileName) + "." + outputType;
 
-            var convertResult = EmailService.Convert(file, fromFormat, toFormat);
+            MemoryStream convertResult = EmailService.Convert(file, fromFormat, toFormat) as MemoryStream;
+
+            HttpContext.Session.Set(SessionKeyConvertResult, convertResult.ToArray());
+            HttpContext.Session.SetString(SessionKeyOutputFileName, outputFileName);
 
             return new Response
             {
@@ -109,5 +115,6 @@ namespace AsposeEmailDotnet5.Controllers
                 FileName = outputFileName
             }.ToString();
         }
+
     }
 }

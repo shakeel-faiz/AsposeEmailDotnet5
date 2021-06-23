@@ -26,7 +26,7 @@ namespace AsposeEmailDotnet5
 
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
-            services.AddTransient<IAsposeEmailCloudApiService, AsposeEmailCloudApiService>();
+            services.AddSingleton<IAsposeEmailCloudApiService, AsposeEmailCloudApiService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

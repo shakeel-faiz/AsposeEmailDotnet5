@@ -31,31 +31,14 @@ namespace AsposeEmailDotnet5.Services
         private string ClientId = "81e42949-3dc6-4080-b1d7-1c2c30cd954c";
         private string ClientSecret = "6af97636186e5ea2ad642ad64fd0aa17";
 
-        public EmailCloud EmailCloudApi
-        {
-            get
-            {
-                ISession session = HttpContextAccessor.HttpContext.Session;
-
-                string strEmailCloudSessionKey = nameof(strEmailCloudSessionKey);
-
-                EmailCloud emailCloudApi = session.Get<EmailCloud>(strEmailCloudSessionKey);
-
-                if (emailCloudApi == null)
-                {
-                    emailCloudApi = new EmailCloud(clientSecret: ClientSecret, clientId: ClientId);
-                    session.Set<EmailCloud>(strEmailCloudSessionKey, emailCloudApi);
-                }
-
-                return emailCloudApi;
-            }
-        }
+        public readonly EmailCloud EmailCloudApi;
 
         private IHttpContextAccessor HttpContextAccessor { get; }
 
         public AsposeEmailCloudApiService(IHttpContextAccessor httpContextAccessor)
         {
             HttpContextAccessor = httpContextAccessor;
+            EmailCloudApi = new EmailCloud(clientSecret: ClientSecret, clientId: ClientId);
         }
 
         public Stream Convert(Stream file, string fromFormat, string toFormat)
