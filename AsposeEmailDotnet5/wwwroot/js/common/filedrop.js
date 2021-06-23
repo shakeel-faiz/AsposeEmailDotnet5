@@ -20,25 +20,24 @@
 
 (function ($) {
     $.fn.filedrop = function (options) {
-        var getRandomIntInclusive = function (min, max) {
+        let getRandomIntInclusive = function (min, max) {
             min = Math.ceil(min);
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min + 1)) + min;
         };
 
-        var randomId = getRandomIntInclusive(1, Number.MAX_SAFE_INTEGER);
-        var acceptExts = options.Accept.split(/\s*,\s*/).map(function (ext) {
-            return ext.substring(1).toUpperCase();
-        });
+        let randomId = getRandomIntInclusive(1, Number.MAX_SAFE_INTEGER);
 
-        var droppedFiles = [];
+        let acceptExts = options.Accept.split(/\s*,\s*/).map(ext => ext.substring(1).toUpperCase());
 
-        var getFileExtension = function (file) {
+        let droppedFiles = [];
+
+        let getFileExtension = function (file) {
             var pos = file.name.lastIndexOf('.');
             return pos !== -1 ? file.name.substring(pos + 1).toUpperCase() : null;
         };
 
-        var nextFileId = function () {
+        let nextFileId = function () {
             var id = 1;
             var found;
             do {
@@ -55,13 +54,13 @@
             return id;
         };
 
-        var preventFileDrop = function (evt) {
+        let preventFileDrop = function (evt) {
             evt = evt || event;
             evt.preventDefault();
             evt.stopPropagation();
         };
 
-        var removeFileBlock = function (id) {
+        let removeFileBlock = function (id) {
             var pos;
             for (pos = 0; pos < droppedFiles.length; pos++) {
                 if (droppedFiles[pos].id === id) {
@@ -77,7 +76,7 @@
             }
         };
 
-        var moveUpFileBlock = function (id) {
+        let moveUpFileBlock = function (id) {
             var pos;
             for (pos = 0; pos < droppedFiles.length; pos++) {
                 if (droppedFiles[pos].id === id) {
@@ -95,7 +94,7 @@
             }
         };
 
-        var moveDownFileBlock = function (id) {
+        let moveDownFileBlock = function (id) {
             var pos;
             for (pos = 0; pos < droppedFiles.length; pos++) {
                 if (droppedFiles[pos].id == id) {
@@ -113,7 +112,7 @@
             }
         }
 
-        var appendFileBlock = function (file) {
+        let appendFileBlock = function (file) {
             var id = nextFileId();
             var name = file.name;
             var fileMoveUpLink = null;
@@ -168,7 +167,7 @@
             });
         };
 
-        var prepareFormData = function (min = 1, max = undefined) {
+        let prepareFormData = function (min = 1, max = undefined) {
             if (max === undefined)
                 max = options.MaximumUploadFiles;
 
@@ -199,7 +198,7 @@
             }
         };
 
-        var uploadFileSelected = function (event) {
+        let uploadFileSelected = function (event) {
             var bError = false;
             if (event.target.files && event.target.files.length) {
                 var fileCount = event.target.files.length + droppedFiles.length;
@@ -231,7 +230,7 @@
             return bError;
         };
 
-        var fileDropBlockStr = '\
+        let fileDropBlockStr = '\
             <div class="filedrop filedrop-mvc fileplacement" id="filedrop-' + randomId + '"' + '>\
                 <label for="UploadFileInput-' + randomId + '" style="margin-top: 50px;text-decoration: underline">' + options.DropFilesPrompt + '</label>\
                 <input type="file" class="uploadfileinput" id="UploadFileInput-' + randomId + '" name="UploadFileInput-' + randomId + '"\
@@ -241,7 +240,7 @@
             '/>\
             </div>';
 
-        var fileDropBlock = $(fileDropBlockStr);
+        let fileDropBlock = $(fileDropBlockStr);
 
         //adding file drop block
         this.prepend(fileDropBlock);

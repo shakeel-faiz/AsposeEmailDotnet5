@@ -24,7 +24,7 @@ function workSuccess(data, textStatus, xhr) {
             $('#WorkPlaceHolder').addClass('hidden');
             $('#DownloadPlaceHolder').removeClass('hidden');
 
-            var url = encodeURI(o.UIBasePath + `common/download?file=${fileName}`);
+            var url = encodeURI(o.UIBasePath + `common/download`);
 
             $('#DownloadButton').attr('href', url);
         } else {
