@@ -13,7 +13,7 @@ namespace AsposeEmailDotnet5.Controllers
         {
         }
 
-        public override string Product => "";
+        public override string Product => string.Empty;
 
         [HttpGet]
         public FileResult Download()

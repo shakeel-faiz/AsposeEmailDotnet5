@@ -81,7 +81,7 @@ namespace AsposeEmailDotnet5.Controllers
 
         public IActionResult Conversion()
         {
-            var model = new ViewModel(this, "Conversion")
+            var model = new ViewModel(this, nameof(Conversion))
             {
                 SaveAsComponent = true,
                 MaximumUploadFiles = 3,
