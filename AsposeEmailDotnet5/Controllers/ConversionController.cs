@@ -26,8 +26,8 @@ namespace AsposeEmailDotnet5.Controllers
             var model = new ViewModel(this, nameof(Conversion))
             {
                 SaveAsComponent = true,
-                MaximumUploadFiles = 1,
-                UseSorting = false
+                MaximumUploadFiles = 3,
+                UseSorting = true
             };
 
             return View(model);
