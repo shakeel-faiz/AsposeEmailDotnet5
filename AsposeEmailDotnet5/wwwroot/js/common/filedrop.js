@@ -117,16 +117,16 @@
             let fileMoveUpLink = null;
             let fileMoveDownLink = null;
             if (options.UseSorting) {
-                fileMoveUpLink = $('\
-                    <a class="fileMoveUpLink">\
-                        <i class="fa fa-arrow-up"></i>\
+                fileMoveUpLink = $(`
+                    <a class="fileMoveUpLink">
+                        <i class="fa fa-arrow-up"></i>
+                    </a>
+                `);
+                fileMoveDownLink = $(`
+                    <a class="fileMoveDownLink">
+                        <i class="fa fa-arrow-down"></i>
                     </a>\
-                ');
-                fileMoveDownLink = $('\
-                    <a class="fileMoveDownLink">\
-                        <i class="fa fa-arrow-down"></i>"\
-                    </a>\
-                ');
+                `);
                 fileMoveUpLink.find("i").on('click', function () {
                     moveUpFileBlock(id);
                 });
@@ -134,26 +134,26 @@
                     moveDownFileBlock(id);
                 });
             }
-            let fileRemoveLink = $('\
-                <a class="fileRemoveLink">\
-                    <i class="fa fa-times"></i>\
+            let fileRemoveLink = $(`
+                <a class="fileRemoveLink">
+                    <i class="fa fa-times"></i>
                 </a>\
-            ');
+            `);
             fileRemoveLink.find("i").on('click', function () {
                 removeFileBlock(id);
             });
-            let spanFileName = $('\
-                <span class="filename">\
-                    <label class="custom-file-upload" style="display:inline">'+ name + '</label>\
-                </span>\
-            ');
+            let spanFileName = $(`
+                <span class="filename">
+                    <label class="custom-file-upload" style="display:inline">${name}</label>
+                </span>
+            `);
             if (fileMoveUpLink != null && fileMoveDownLink != null) {
                 spanFileName.append(fileMoveUpLink);
                 spanFileName.append(fileMoveDownLink);
             }
             spanFileName.append(fileRemoveLink);
 
-            let fileBlock = $('<div id="fileupload-' + id + '" class="fileupload"></div>');
+            let fileBlock = $(`<div id="fileupload-${id}" class="fileupload"></div>`);
             fileBlock.on('dragover', preventFileDrop);
             fileBlock.on('drop', preventFileDrop);
             fileBlock.append(spanFileName);
