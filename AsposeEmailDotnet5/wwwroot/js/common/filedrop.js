@@ -177,12 +177,8 @@
                 }
 
                 let data = new FormData();
-                let dotPos, ext;
-                let f;
                 for (let i = 0; i < droppedFiles.length; i++) {
-                    f = droppedFiles[i];
-                    dotPos = f.name.lastIndexOf('.');
-                    ext = dotPos >= 0 ? f.name.substring(dotPos + 1).toUpperCase() : null;
+                    let ext = getFileExtension(droppedFiles[i]);
                     if (ext != null && options.UploadOptions.indexOf(ext) !== -1) {
                         data.append(droppedFiles[i].name, droppedFiles[i].file);
                     } else {
