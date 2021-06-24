@@ -13,11 +13,6 @@ namespace AsposeEmailDotnet5.Controllers
         {
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult Default()
         {
             ViewBag.PageTitle = Resources["emailConversionPageTitle"];
@@ -25,12 +20,6 @@ namespace AsposeEmailDotnet5.Controllers
 
             var model = new LandingPageModel(this);
             return View(model);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
