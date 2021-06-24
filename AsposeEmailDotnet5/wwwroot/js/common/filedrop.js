@@ -83,15 +83,18 @@
             }
         };
 
+        let swapFiles = function (pos, swappos) {
+            let flTemp = droppedFiles[swappos];
+            droppedFiles[swappos] = droppedFiles[pos];
+            droppedFiles[pos] = flTemp;
+        }
+
         let moveUpFileBlock = function (id) {
             let pos = findPostion(id);
 
             if (pos < droppedFiles.length && pos !== 0) {
                 let prevId = droppedFiles[pos - 1].id;
-                let flTemp = droppedFiles[pos - 1];
-                droppedFiles[pos - 1] = droppedFiles[pos];
-                droppedFiles[pos] = flTemp;
-
+                swapFiles(pos, pos - 1);
                 let block = $('#filedrop-' + randomId + ' > #fileupload-' + id).detach();
                 $('#filedrop-' + randomId + ' > #fileupload-' + prevId).before(block);
             }
@@ -102,10 +105,7 @@
 
             if (pos < droppedFiles.length && pos != (droppedFiles.length - 1)) {
                 let nextId = droppedFiles[pos + 1].id;
-                let flTemp = droppedFiles[pos + 1];
-                droppedFiles[pos + 1] = droppedFiles[pos];
-                droppedFiles[pos] = flTemp;
-
+                swapFiles(pos, pos + 1);
                 let block = $('#filedrop-' + randomId + ' > #fileupload-' + id).detach();
                 $('#filedrop-' + randomId + ' > #fileupload-' + nextId).after(block);
             }
