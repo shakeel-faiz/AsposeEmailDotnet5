@@ -229,15 +229,11 @@
             return bError;
         };
 
-        let fileDropBlockStr = '\
-            <div class="filedrop filedrop-mvc fileplacement" id="filedrop-' + randomId + '"' + '>\
-                <label for="UploadFileInput-' + randomId + '" style="margin-top: 50px;text-decoration: underline">' + options.DropFilesPrompt + '</label>\
-                <input type="file" class="uploadfileinput" id="UploadFileInput-' + randomId + '" name="UploadFileInput-' + randomId + '"\
-                    title=""\
-                    accept="' + options.Accept + '"' +
-            (options.Multiple ? 'multiple="' + options.Multiple + '"' : '') +
-            '/>\
-            </div>';
+        let fileDropBlockStr = `
+            <div class="filedrop filedrop-mvc fileplacement" id="filedrop-${randomId}">
+                <label for="UploadFileInput-${randomId}" style="margin-top: 50px;text-decoration: underline">${options.DropFilesPrompt}</label>
+                <input type="file" class="uploadfileinput" id="UploadFileInput-${randomId}" name="UploadFileInput-${randomId}"
+                    title="" accept="${options.Accept}" ${options.Multiple ? `multiple="${options.Multiple}"` : ''} /></div>`;
 
         let fileDropBlock = $(fileDropBlockStr);
 

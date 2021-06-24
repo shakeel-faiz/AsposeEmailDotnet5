@@ -26,7 +26,7 @@ namespace AsposeEmailDotnet5.Models
         public bool UseSorting => Parent.UseSorting;
 
         #region FileDrop
-        public bool Multiple => true;
+        public bool Multiple => MaximumUploadFiles > 1;
         public string DropFilesPrompt => Resources["DropOrUploadFile"];
         public string Accept => Parent.ExtensionsString.Replace("|.", ",.");
         #endregion
