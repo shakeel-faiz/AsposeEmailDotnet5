@@ -33,11 +33,8 @@ namespace AsposeEmailDotnet5.Services
 
         public readonly EmailCloud EmailCloudApi;
 
-        private IHttpContextAccessor HttpContextAccessor { get; }
-
-        public AsposeEmailCloudApiService(IHttpContextAccessor httpContextAccessor)
+        public AsposeEmailCloudApiService()
         {
-            HttpContextAccessor = httpContextAccessor;
             EmailCloudApi = new EmailCloud(clientSecret: ClientSecret, clientId: ClientId);
         }
 
