@@ -6,9 +6,7 @@
 
         public string FileName { get; set; }
 
-        public override string ToString()
-        {
-            return $"{StatusCode}|{FileName}";
-        }
+        public string FileData { get; set; }
+
     }
 }

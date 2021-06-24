@@ -14,22 +14,21 @@ function hideLoader() {
 
 function workSuccess(data, textStatus, xhr) {
     hideLoader();
-    var response = data.split('|');
-    if (response.length > 0) {
-        var statusCode = response[0];
-        var fileName = response[1];
 
-        if (statusCode === '200') {
+    const fromHexString = hexString => new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
 
-            $('#WorkPlaceHolder').addClass('hidden');
-            $('#DownloadPlaceHolder').removeClass('hidden');
+    if (data.statusCode == 200) {
+        var fileData = fromHexString(data.fileData)
 
-            var url = encodeURI(o.UIBasePath + `common/download`);
+        const anchor = document.createElement('a');
+        anchor.download = data.fileName;
 
-            $('#DownloadButton').attr('href', url);
-        } else {
-            showAlert(statusCode);
-        }
+        const blob = new Blob([fileData], { type: "application/octet-stream" })
+        anchor.href = URL.createObjectURL(blob);
+        anchor.click();
+    }
+    else {
+        showAlert(statusCode);
     }
 }
 

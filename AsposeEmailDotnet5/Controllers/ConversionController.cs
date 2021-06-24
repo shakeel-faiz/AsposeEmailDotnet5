@@ -3,6 +3,7 @@ using AsposeEmailDotnet5.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -91,13 +92,14 @@ namespace AsposeEmailDotnet5.Controllers
         }
 
         [HttpPost]
-        public async Task<string> Conversion(string outputType)
+        public async Task<Response> Conversion(string outputType)
         {
             MemoryStream ms = new MemoryStream();
 
             IFormFile postedFile = Request.Form.Files[0];
             string fileName = postedFile.FileName;
             await postedFile.CopyToAsync(ms);
+            ms.Position = 0;
 
             string fromFormat = Path.GetExtension(fileName).Substring(1);
             string toFormat = outputType;
@@ -106,14 +108,14 @@ namespace AsposeEmailDotnet5.Controllers
 
             MemoryStream convertResult = EmailService.Convert(file, fromFormat, toFormat) as MemoryStream;
 
-            HttpContext.Session.Set(SessionKeyConvertResult, convertResult.ToArray());
-            HttpContext.Session.SetString(SessionKeyOutputFileName, outputFileName);
+            string fileData = Convert.ToHexString(convertResult.ToArray());
 
             return new Response
             {
                 StatusCode = 200,
-                FileName = outputFileName
-            }.ToString();
+                FileName = outputFileName,
+                FileData = fileData
+            };
         }
 
     }
