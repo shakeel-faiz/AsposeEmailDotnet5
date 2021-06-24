@@ -2,8 +2,9 @@
 var fileDrop = {};
 
 function showLoader() {
-    $('.progress > .progress-bar').html('15%');
-    $('.progress > .progress-bar').css('width', '15%');
+    let progressBar = $('.progress > .progress-bar');
+    progressBar.html('15%');
+    progressBar.css('width', '15%');
     $('#loader').removeClass("hidden");
     hideAlert();
 }
@@ -23,7 +24,7 @@ function workSuccess(data, textStatus, xhr) {
         const anchor = document.createElement('a');
         anchor.download = data.fileName;
 
-        const blob = new Blob([fileData], { type: "application/octet-stream" })
+        const blob = new Blob([fileData], { type: "application/octet-stream" });
         anchor.href = URL.createObjectURL(blob);
         anchor.click();
     }
@@ -33,23 +34,30 @@ function workSuccess(data, textStatus, xhr) {
 }
 
 function hideAlert() {
-    $('#alertMessage').addClass("hidden");
-    $('#alertMessage').text("");
-    $('#alertSuccess').addClass("hidden");
-    $('#alertSuccess').text("");
+    let alertMessage = $('#alertMessage');
+    alertMessage.addClass("hidden");
+    alertMessage.text("");
+
+    let alertSuccess = $('#alertSuccess');
+    alertSuccess.addClass("hidden");
+    alertSuccess.text("");
 }
 
 function showAlert(msg) {
     hideLoader();
-    $('#alertMessage').html(msg);
-    $('#alertMessage').removeClass("hidden");
-    $('#alertMessage').fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+
+    let alertMessage = $('#alertMessage');
+    alertMessage.html(msg);
+    alertMessage.removeClass("hidden");
+    alertMessage.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 }
 
 function showMessage(msg) {
     hideLoader();
-    $('#alertSuccess').text(msg);
-    $('#alertSuccess').removeClass("hidden");
+
+    let alertSuccess = $('#alertSuccess');
+    alertSuccess.text(msg);
+    alertSuccess.removeClass("hidden");
 }
 
 function progress(evt) {
@@ -60,8 +68,9 @@ function progress(evt) {
         var percentage = Math.round((current * 100) / max);
         percentage = (percentage < 15 ? 15 : percentage) + '%';
 
-        $('.progress > .progress-bar').html(percentage);
-        $('.progress > .progress-bar').css('width', percentage);
+        let progressBar = $('.progress > .progress-bar');
+        progressBar.html(percentage);
+        progressBar.css('width', percentage);
     }
 }
 
