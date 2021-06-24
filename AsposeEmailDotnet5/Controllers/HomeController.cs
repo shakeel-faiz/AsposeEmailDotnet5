@@ -1,7 +1,6 @@
 ﻿using AsposeEmailDotnet5.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace AsposeEmailDotnet5.Controllers
@@ -10,7 +9,7 @@ namespace AsposeEmailDotnet5.Controllers
     {
         public override string Product => string.Empty;
 
-        public HomeController(IMemoryCache cache):base(cache)
+        public HomeController(IMemoryCache cache) : base(cache)
         {
         }
 
