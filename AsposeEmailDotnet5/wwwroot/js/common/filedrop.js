@@ -60,13 +60,20 @@
             evt.stopPropagation();
         };
 
-        let removeFileBlock = function (id) {
+        let findPostion = function (id) {
             let pos;
             for (pos = 0; pos < droppedFiles.length; pos++) {
                 if (droppedFiles[pos].id === id) {
                     break;
                 }
             }
+
+            return pos;
+        }
+
+        let removeFileBlock = function (id) {
+            let pos = findPostion(id);
+
             if (pos < droppedFiles.length) {
                 droppedFiles.splice(pos, 1);
                 $('#filedrop-' + randomId).find('#fileupload-' + id).remove();
@@ -77,12 +84,8 @@
         };
 
         let moveUpFileBlock = function (id) {
-            let pos;
-            for (pos = 0; pos < droppedFiles.length; pos++) {
-                if (droppedFiles[pos].id === id) {
-                    break;
-                }
-            }
+            let pos = findPostion(id);
+
             if (pos < droppedFiles.length && pos !== 0) {
                 let prevId = droppedFiles[pos - 1].id;
                 let flTemp = droppedFiles[pos - 1];
@@ -95,12 +98,8 @@
         };
 
         let moveDownFileBlock = function (id) {
-            let pos;
-            for (pos = 0; pos < droppedFiles.length; pos++) {
-                if (droppedFiles[pos].id == id) {
-                    break;
-                }
-            }
+            let pos = findPostion(id);
+
             if (pos < droppedFiles.length && pos != (droppedFiles.length - 1)) {
                 let nextId = droppedFiles[pos + 1].id;
                 let flTemp = droppedFiles[pos + 1];
