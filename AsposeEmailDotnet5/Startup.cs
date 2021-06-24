@@ -53,9 +53,9 @@ namespace AsposeEmailDotnet5
                     );
 
                 endpoints.MapControllerRoute(
-                    name: "AsposeTest",
-                    pattern: "{product}/Test",
-                    defaults: new { controller = "Test", action = "Conversion" }
+                    name: "AsposeLandingPage",
+                    pattern: "",
+                    defaults: new { controller = "Home", action = "Default" }
                     );
 
                 endpoints.MapControllerRoute(
