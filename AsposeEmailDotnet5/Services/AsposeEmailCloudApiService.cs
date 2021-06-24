@@ -1,6 +1,7 @@
 ﻿using Aspose.Email.Cloud.Sdk.Api;
 using Aspose.Email.Cloud.Sdk.Model;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Text.Json;
 
@@ -28,13 +29,13 @@ namespace AsposeEmailDotnet5.Services
 
     public class AsposeEmailCloudApiService : IAsposeEmailCloudApiService
     {
-        private string ClientId = "81e42949-3dc6-4080-b1d7-1c2c30cd954c";
-        private string ClientSecret = "6af97636186e5ea2ad642ad64fd0aa17";
-
         public readonly EmailCloud EmailCloudApi;
 
-        public AsposeEmailCloudApiService()
+        public AsposeEmailCloudApiService(IConfiguration config)
         {
+            string ClientId = config["AsposeEmailUserData:ClientId"];
+            string ClientSecret = config["AsposeEmailUserData:ClientSecret"];
+
             EmailCloudApi = new EmailCloud(clientSecret: ClientSecret, clientId: ClientId);
         }
 
